@@ -3,10 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .target{
+            background-color: blue;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <ul>
-  <li th:each="dto : ${list}">[[${dto}]]</li>
+  <li th:each="dto, status : ${list}" th:class="${dto.sno % 5 == 0} ? 'target'">
+    [[${status.index}]]---------------[[${dto}]]</li>
+</ul>
+<ul>
+    <li th:each="dto, state : ${list}" th:if="${dto.sno % 5 == 0}">[[${state.index}]][[${dto}]]</li>
+</ul>
+<ul>
+    <li th:each="dto, state : ${list}">
+        <span th:if="${dto.sno % 5 == 0}" th:text="${'----------------------' + dto.sno}"/>
+        <!--/* 위 if 문의 else 같은 방법 */-->
+        <span th:unless="${dto.sno % 5 == 0}" th:text="${dto.first}"/>
+
+    </li>
 </ul>
 </body>
 </html>
